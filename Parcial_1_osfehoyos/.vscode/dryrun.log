@@ -1,4 +1,6 @@
-make.exe --dry-run --always-make --keep-going --print-directory
-"make.exe" no se reconoce como un comando interno o externo,
-programa o archivo por lotes ejecutable.
-
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/oscar/Oscar/C-Code/Parcial_1_osfehoyos'
+gcc -c -o main.o main.c
+gcc -o versions main.o
+make: Leaving directory '/home/oscar/Oscar/C-Code/Parcial_1_osfehoyos'
+ 

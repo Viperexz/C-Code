@@ -37,33 +37,45 @@ char * obtener_hash(char * nombre_archivo)
     char * comando;
     FILE * fp;
     struct stat s;
-    //Verificacion si el archivo no existe.
+
+    //Verificacion si el archivo existe y es obtenible.
     if(stat(nombre_archivo, &s)<0 || !S_ISREG(s.st_mode))
     {
         perror("stat");
         return hash;
     }
+
     int len = strlen("sha256sum ");
+
+    //Comando Sha256sum + nombre del archivo
     comando = malloc(len +strlen(nombre_archivo)+ 1);
-    if(comando != NULL)
-    {
-        return hash;
-    }
-    //Comando = sha256sum
-    sprintf(comando, "sha256sum %s", nombre_archivo);
+    //Salida Estandar 
+    sprintf(comando,"sha256sum %s", nombre_archivo);
+    
+    //Abrimos un flujo de datos
+    fp = popen(comando, "r");
+ 
     //Abrir un flujo con el coando sha256sum ARCHIVO
-    fp = popen(comando,"r");
-    if(fp != NULL)
+    
+    if(fp == NULL)
     {
         return hash;
     }
+
     //Reservar memoria para el Hash 
     hash = malloc(65);
-    fscanf(fp,"%s",hash);
-    //Cerrar el flujo
-    pclose(fp);
-    free(comando);
-    //Quien usa esta funcio debe liberar la memoria.
 
-    return hash;
+    fgets(hash,65,fp);
+    if(strlen(hash) == 64)
+    {
+        pclose(fp);
+        free(comando);
+        return hash;
+    }
+    else
+    {
+        pclose(fp);
+        free(hash);
+        return NULL;
+    }
 }

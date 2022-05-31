@@ -15,5 +15,11 @@ En esta implementación sólo se deberá realizar el control de versiones por
 directorio, en el cual sólo se pueden agregar archivos que se encuentren en el
 directorio actual.
 
-La aplicación implementada se deberá llamar versions. Su uso será el si-
-guiente:
+La aplicación implementada se deberá llamar versions. Su uso será el siguiente
+
+
+//
+Este Archivo tiene la guia para copiar y crear archivos con estructuras usando
+fopen, fwrite, fread, entre otras funciones.
+
+Recuerde liberar la memoria (free(varible)).
