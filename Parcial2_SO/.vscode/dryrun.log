@@ -1,0 +1,8 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/juanmz/Documentos/vscode/Parcial2_SO'
+gcc -c -o cliente.o cliente.c
+gcc -c -o server.o server.c
+gcc -o server server.o -pthread
+gcc -o cliente cliente.o
+make: Leaving directory '/home/juanmz/Documentos/vscode/Parcial2_SO'
+ 
