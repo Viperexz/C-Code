@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Jul  6 09:24:31 2022
+# Make data base, printed on Wed Jul  6 17:26:53 2022
 
 # Variables
 
@@ -17,9 +17,9 @@ LC_ALL = C
 # environment
 SSH_AGENT_LAUNCHER = openssh
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-4baa9bfc-c773-4379-b2bb-28c692f172ec.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-e668076e-d217-4092-9472-40143e347d37.sock
 # environment
-VSCODE_CWD = /home/juanmz/Documentos/vscode/Parcial2_SO
+VSCODE_CWD = /home/oscar/Oscar/Github/C-Code/Parcial2_SO
 # environment
 GDM_LANG = es_CO.UTF-8
 # default
@@ -33,9 +33,11 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
 .VARIABLES := 
 # environment
-PWD = /home/juanmz/Documentos/vscode/Parcial2_SO
+PWD = /home/oscar/Oscar/Github/C-Code/Parcial2_SO
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
+# environment
+OLDPWD = /home/oscar/Oscar/Github/C-Code
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
@@ -43,27 +45,27 @@ VSCODE_LOG_STACK = false
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = /home/juanmz/.config/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
+VSCODE_CODE_CACHE_PATH = /home/oscar/.config/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.MZRUO1
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.PKF0O1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.102
+GNOME_TERMINAL_SERVICE = :1.97
 # makefile
 MAKEFLAGS = pqrR
 # environment
-DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=7a578322e32b3f0ca898de3662c5993d
+DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=97217316a8e62b5f619b4afc62c60b96
 # makefile
-CURDIR := /home/juanmz/Documentos/vscode/Parcial2_SO
+CURDIR := /home/oscar/Oscar/Github/C-Code/Parcial2_SO
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -85,23 +87,23 @@ MAKEFILE_LIST := Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 3203
+VSCODE_PID = 3183
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/debian:@/tmp/.ICE-unix/1818,unix/debian:/tmp/.ICE-unix/1818
+SESSION_MANAGER = local/Viper:@/tmp/.ICE-unix/1638,unix/Viper:/tmp/.ICE-unix/1638
 # automatic
 *F = $(notdir $*)
 # environment
 CHROME_DESKTOP = code-url-handler.desktop
 # environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=7a578322e32b3f0ca898de3662c5993d
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=97217316a8e62b5f619b4afc62c60b96
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # environment
-VSCODE_NLS_CONFIG = {"locale":"es","availableLanguages":{"*":"es"},"_languagePackId":"eae11d900af9c06c6da7ac60cedf8cf9.es","_translationsConfigFile":"/home/juanmz/.config/Code/clp/eae11d900af9c06c6da7ac60cedf8cf9.es/tcf.json","_cacheRoot":"/home/juanmz/.config/Code/clp/eae11d900af9c06c6da7ac60cedf8cf9.es","_resolvedLanguagePackCoreLocation":"/home/juanmz/.config/Code/clp/eae11d900af9c06c6da7ac60cedf8cf9.es/30d9c6cd9483b2cc586687151bcbcd635f373630","_corruptedFile":"/home/juanmz/.config/Code/clp/eae11d900af9c06c6da7ac60cedf8cf9.es/corrupted.info","_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"es-419","availableLanguages":{},"_languagePackSupport":true}
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
@@ -115,7 +117,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/60a55188_dcb0_423b_9a00_4cbb6f343769
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/42a7a91e_dad4_4f95_a9ee_ee336038b0a9
 # environment
 MAKELEVEL := 0
 # default
@@ -131,7 +133,7 @@ LANGUAGE = es_CO:es
 # environment
 VSCODE_LOG_NATIVE = false
 # environment
-USERNAME = juanmz
+USERNAME = oscar
 # environment
 GNOME_SETUP_DISPLAY = :1
 # automatic
@@ -149,13 +151,13 @@ ORIGINAL_XDG_CURRENT_DESKTOP = GNOME
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
-LOGNAME = juanmz
+LOGNAME = oscar
 # makefile
 .DEFAULT_GOAL := all
 # environment
 DISPLAY = :0
 # environment
-USER = juanmz
+USER = oscar
 # environment
 GTK_MODULES = gail:atk-bridge
 # default
@@ -173,13 +175,13 @@ XDG_SESSION_CLASS = user
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-HOME = /home/juanmz
+HOME = /home/oscar
 # environment
 QT_IM_MODULE = ibus
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-ab35d5ec-1.68.1-main.sock
+VSCODE_IPC_HOOK = /run/user/1000/vscode-b6f35f9c-1.68.1-main.sock
 # environment
 TERM = xterm-256color
 # environment
@@ -203,7 +205,7 @@ XDG_MENU_PREFIX = gnome-
 # environment
 GDMSESSION = gnome
 # variable set hash-table stats:
-# Load=96/1024=9%, Rehash=0, Collisions=12/129=9%
+# Load=97/1024=9%, Rehash=0, Collisions=12/130=9%
 
 # Pattern-specific Variable Values
 
@@ -211,9 +213,9 @@ GDMSESSION = gnome
 
 # Directories
 
-# . (device 2049, inode 540353): 15 files, no impossibilities.
+# . (device 2049, inode 1571690): 14 files, no impossibilities.
 
-# 15 files, no impossibilities in 1 directories.
+# 14 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -223,7 +225,7 @@ GDMSESSION = gnome
 
 server.o: server.c
 #  Implicit rule search has not been done.
-#  Last modified 2022-07-06 07:29:22.503555626
+#  Last modified 2022-07-06 17:26:14.424482644
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 7):
@@ -232,13 +234,13 @@ server.o: server.c
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-01 17:07:10
+#  Last modified 2022-07-06 17:26:14.304422641
 #  File has been updated.
 #  Successfully updated.
 
 cliente.o: cliente.c
 #  Implicit rule search has not been done.
-#  Last modified 2022-07-06 07:29:22.335471621
+#  Last modified 2022-07-06 17:26:14.304422641
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 5):
@@ -255,7 +257,7 @@ clean:
 # Not a target:
 server.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-06 07:29:17.905257521
+#  Last modified 2022-07-06 17:26:14.424482644
 #  File has been updated.
 #  Successfully updated.
 
@@ -268,15 +270,15 @@ server.c:
 # Not a target:
 cliente.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-06 07:29:05.507061232
+#  Last modified 2022-07-06 17:26:14.304422641
 #  File has been updated.
 #  Successfully updated.
 
 all: cliente.o server.o
 #  Command line target.
 #  Implicit rule search has not been done.
-#  Implicit/static pattern stem: ''
  
+#  Implicit/static pattern stem: ''
 #  File does not exist.
 #  File has been updated.
 #  Needs to be updated (-q is set).
@@ -316,12 +318,12 @@ all: cliente.o server.o
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 21 / storage = 174 B / avg = 8 B
-# current buf: size = 8162 B / used = 174 B / count = 21 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 20 / storage = 168 B / avg = 8 B
+# current buf: size = 8162 B / used = 168 B / count = 20 / avg = 8 B
 
-# strcache performance: lookups = 37 / hit rate = 43%
+# strcache performance: lookups = 36 / hit rate = 44%
 # hash-table stats:
-# Load=21/8192=0%, Rehash=0, Collisions=0/37=0%
-# Finished Make data base on Wed Jul  6 09:24:31 2022
+# Load=20/8192=0%, Rehash=0, Collisions=0/36=0%
+# Finished Make data base on Wed Jul  6 17:26:53 2022
 
  

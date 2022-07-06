@@ -9,7 +9,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include "split/split.h"
+
 
 #define DIRECTORIO_ARCHIVOS ".files"
 #define MAX_MEM 1024 * 1024 * 4 // Capacidad de 4M
@@ -26,15 +26,15 @@ int main(int argc,char *  argv[])
 	//Socket del servidor
 	int s;
 	//Cliente
-	int arregloClientes;
+	int arregloClientes[20];
 	//Bandera Contadora clientes
 	int varCountClientes = 0;
 	char * archivosCola;
 	int port = 0; //Este debe ingresar por consola
 	struct sockaddr_in  addr;
 	//IPv4
-	arregloClientes = (int *) malloc(sizeof(int) * 20); //Numero maximo de conexiones. 
-	archivosCola = char * malloc(sizeof(char)*20);
+
+	archivosCola = (char *) malloc(sizeof(char)*20);
 	if(argc>=2 )
 	{
 		port = atoi(argv[1]);
@@ -75,9 +75,14 @@ int main(int argc,char *  argv[])
 	while(!finished) {
 
 		char linearecibida[BUFSIZ];
-		if(varCountClientes < 20)
+		if(varCountClientes < 2)
 		{
-			arregloClientes = accept(s,NULL,0); //Espera una conexion.
+			arregloClientes[varCountClientes] = accept(s,NULL,0); //Espera una conexion.
+			printf("Cliente %i Conectado", arregloClientes[varCountClientes]); 
+			char msjErr[35];
+			strcpy(msjErr,"SERVER: Cliente conectado \n ");
+			send(arregloClientes[varCountClientes],msjErr,BUFSIZ,0);
+			varCountClientes++;
 		}
 		else
 		{
@@ -86,15 +91,6 @@ int main(int argc,char *  argv[])
 			strcpy(msjErr,"Limite de conexiones alcanzado");
 			send(aux,msjErr,BUFSIZ,0);
 			close(aux);
-		}
-		if(arregloClientes[varCountClientes] != 0)
-		{
-			printf("Cliente %i Conectado", arregloClientes[varCountClientes]); 
-			char msjErr[35];
-			int aux = accept(s,NULL,0);
-			strcpy(msjErr,"Cliente conectado");
-			send(aux,msjErr,BUFSIZ,0);
-			varCountClientes++;
 		}
 		recv(arregloClientes[varCountClientes-1],linearecibida,BUFSIZ,0); 		//Recv (socket cliente, donde guardar el mensaje, tamano,0)
 		
@@ -108,21 +104,21 @@ int main(int argc,char *  argv[])
 
 		if(strcmp(comando,"get")==0) {
 			char respuesta[20];
-			recibir(nombre,arregloClientes[]);
+			recibir(nombre,arregloClientes[varCountClientes-1]);
 			strcpy(respuesta,"Entregado... \n");
-			send(c,respuesta,BUFSIZ,0);
+			send(arregloClientes[varCountClientes-1],respuesta,BUFSIZ,0);
 			//echo("entregado\n");
 		}
 		else if(strcmp(comando,"put")==0)
 		{
 			char respuesta[20];
-			enviar(nombre,arregloClientes[]);
+			enviar(nombre,arregloClientes[varCountClientes-1]);
 			strcpy(respuesta,"Enviado... \n");
-			send(c,respuesta,BUFSIZ,0);
+			send(arregloClientes[varCountClientes-1],respuesta,BUFSIZ,0);
 			//echo("archivo recibido\n");
 		}
 		sleep(5);
-		close(arregloClientes[]);
+		close(arregloClientes[varCountClientes-1]);
 	}
 
 	exit(EXIT_SUCCESS);

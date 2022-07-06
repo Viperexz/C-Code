@@ -9,7 +9,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include "split/split.h"
+
 
 
 /*
@@ -101,7 +101,7 @@ int main(int argc,char *  argv[])
 		
 		char ** cadenas;
 
-		cadenas = split(comando," ","/n/r/t");
+		//cadenas = split(comando," ","/n/r/t");
 		
 		char instruccion[10];
 		char nombre[50];
