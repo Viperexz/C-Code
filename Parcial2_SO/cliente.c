@@ -45,6 +45,9 @@ int main(int argc,char *  argv[])
 	char * ip = "127.0.0.1";
 	//Socket del servidor
 	struct sockaddr_in  addr;
+	//Mensajes
+	char comando[BUFSIZ];
+	char respuesta[BUFSIZ];
 	//Metodos
 	if(argc>=2 )
 	{
@@ -77,12 +80,18 @@ int main(int argc,char *  argv[])
 	
 	if(connect(s,(struct sockaddr *)&addr,sizeof(struct sockaddr_in))<0)
 	{
-		printf("No se pudo conectar.");
+		printf("Error al conectar.");
 		exit(EXIT_FAILURE);
 	}
-	printf("Conectado a %s:%i ... \n",ip,port);
-	char comando[BUFSIZ];
-	char respuesta[BUFSIZ];
+	printf("Conectando a %s:%i ... \n",ip,port);
+	recv(s,respuesta,BUFSIZ,0);
+	if(strcmp(respuesta,"Limite de conexiones alcanzado")==0)
+	{	
+		printf("%s",respuesta);
+		exit(EXIT_FAILURE);
+	}
+	printf("%s",respuesta);
+
 	while(!finished)
 	{
 		memset(comando,0,BUFSIZ);

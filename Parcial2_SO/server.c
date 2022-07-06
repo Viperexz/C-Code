@@ -26,11 +26,14 @@ int main(int argc,char *  argv[])
 	//Socket del servidor
 	int s;
 	//Cliente
-	int c;
+	int ArregloClientes;
+	//Bandera Contadora clientes
+	int varCountClientes = 0;
 	int port = 0; //Este debe ingresar por consola
 	struct sockaddr_in  addr;
 	//IPv4
-	 
+	 ArregloClientes = (int *) malloc(sizeof(int) * 20); //Numero maximo de conexiones. 
+
 	if(argc>=2 )
 	{
 		port = atoi(argv[1]);
@@ -71,9 +74,28 @@ int main(int argc,char *  argv[])
 	while(!finished) {
 
 		char linearecibida[BUFSIZ];
-		c = accept(s,NULL,0); 			//Espera una coneccion.
-		printf("Cliente Conectado"); 
-		recv(c,linearecibida,BUFSIZ,0); 		//Recv (socket cliente, donde guardar el mensaje, tamano,0)
+		if(varCountClientes < 20)
+		{
+			ArregloClientes = accept(s,NULL,0); //Espera una conexion.
+		}
+		else
+		{
+			char msjErr[35];
+			int aux = accept(s,NULL,0);
+			strcpy(msjErr,"Limite de conexiones alcanzado");
+			send(aux,msjErr,BUFSIZ,0);
+			close(aux);
+		}
+		if(ArregloClientes[varCountClientes] != 0)
+		{
+			printf("Cliente %i Conectado", ArregloClientes[varCountClientes]); 
+			char msjErr[35];
+			int aux = accept(s,NULL,0);
+			strcpy(msjErr,"Cliente conectado");
+			send(aux,msjErr,BUFSIZ,0);
+			varCountClientes++;
+		}
+		recv(ArregloClientes[varCountClientes-1],linearecibida,BUFSIZ,0); 		//Recv (socket cliente, donde guardar el mensaje, tamano,0)
 		
 		char * cadena = strtok(linearecibida," ");
 
@@ -85,7 +107,7 @@ int main(int argc,char *  argv[])
 
 		if(strcmp(comando,"get")==0) {
 			char respuesta[20];
-			recibir(nombre,c);
+			recibir(nombre,ArregloClientes[]);
 			strcpy(respuesta,"Entregado... \n");
 			send(c,respuesta,BUFSIZ,0);
 			//echo("entregado\n");
@@ -93,13 +115,13 @@ int main(int argc,char *  argv[])
 		else if(strcmp(comando,"put")==0)
 		{
 			char respuesta[20];
-			enviar(nombre,c);
+			enviar(nombre,ArregloClientes[]);
 			strcpy(respuesta,"Enviado... \n");
 			send(c,respuesta,BUFSIZ,0);
 			//echo("archivo recibido\n");
 		}
 		sleep(5);
-		close(c);
+		close(ArregloClientes[]);
 	}
 
 	exit(EXIT_SUCCESS);
