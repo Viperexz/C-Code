@@ -32,9 +32,12 @@ int main(int argc,char *  argv[])
 	char * archivosCola;
 	int port = 0; //Este debe ingresar por consola
 	struct sockaddr_in  addr;
-	//IPv4
-
+	//Se Crea una cola de archivos para verificar que archvivos estan siendo manipulados.
 	archivosCola = (char *) malloc(sizeof(char)*20);
+	/*
+	Esta area solo se dedica para recibir el puerto.
+	De no ingresar por parametros, se le pregunta a el usuario.
+	*/
 	if(argc>=2 )
 	{
 		port = atoi(argv[1]);
@@ -51,7 +54,7 @@ int main(int argc,char *  argv[])
 		}while(port==0);
 	}
 
-	//comprueba la existencia del directorio, en caso de no existir lo crea
+	//Comprueba la existencia del directorio ".files", en caso de no existir lo crea
 	if(dir()==0) {
 		printf("El directorio files existe");
 	}
@@ -59,7 +62,7 @@ int main(int argc,char *  argv[])
 		printf("Se creo el directorio files");
 	}
 
-	//asigna el socket del servidor
+	//Asigna el socket del servidor
 	s = socket(PF_INET,SOCK_STREAM,0);
 
 	//if() TODO Crear verificacion del socket 
@@ -70,8 +73,12 @@ int main(int argc,char *  argv[])
 	addr.sin_port = htons(port);
 	addr.sin_addr.s_addr = INADDR_ANY; //Direccion estandar 0.0.0.0. "Toma automaticamnente cualquier direccion."
 	bind(s,(struct sockaddr *)&addr,sizeof(struct sockaddr_in));
+	//Se deja el servidor en modo escucha.
 	listen(s,10);
+	//Se establece la bandera finished en 0 para que se repita hasta la senal de finalizacion.
 	finished = 0;
+
+
 	while(!finished) {
 
 		char linearecibida[BUFSIZ];
@@ -93,15 +100,14 @@ int main(int argc,char *  argv[])
 			close(aux);
 		}
 		recv(arregloClientes[varCountClientes-1],linearecibida,BUFSIZ,0); 		//Recv (socket cliente, donde guardar el mensaje, tamano,0)
-		
+		//En esta zona se reciben  Comando/peso-archivo/Informacion archivo
+		//En caso que el cliente ingrese un put el servidor llamara al metodo "Recibir", escuchando el tamano y el contenido para escribirlo.
+		//En caso que el cliente ingrese un get el servidor llamara al medoto "Evniar", enviara el tamano y el contenido.
 		char * cadena = strtok(linearecibida," ");
-
 		char comando[10];
 		char nombre[50];
-
 		strcpy(comando, cadena);
 		strcpy(nombre,cadena);
-
 		if(strcmp(comando,"get")==0) {
 			char respuesta[20];
 			recibir(nombre,arregloClientes[varCountClientes-1]);
@@ -120,7 +126,6 @@ int main(int argc,char *  argv[])
 		sleep(5);
 		close(arregloClientes[varCountClientes-1]);
 	}
-
 	exit(EXIT_SUCCESS);
 }
 

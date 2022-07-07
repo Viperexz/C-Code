@@ -27,7 +27,21 @@ char * archivo(char * old_nombre );
 int enviar(char * nombre , int atrSocket);
 int recibir(char * nombre , int atrSocket);
 int finished;
-//
+
+/*
+TODO: Integrar los hilos y semaforos.
+Recordar que se debe validar que los clientes no intenten subir el mismo archivio se presntara una condicion de carrera.
+Al conectarse o desconectarse los mismos
+
+Se debe cambiar la firma de los metodos para que sea de tipo void * "Funciones de hilos".
+
+Verificar las secciones criticas:
+1. Conexion de un usuario.
+2. Acceso a un archivo.
+3. Desconexion y liberacion de recursos
+
+
+*/
 /**
  * @brief 
  * Argc [2]
@@ -94,6 +108,12 @@ int main(int argc,char *  argv[])
 
 	while(!finished)
 	{
+
+		//TODO: Crear una funcion con este metodo:
+		//Esta area escucha los comandos ingresados por consola .
+		//Recuerda si el usuario ingresa:
+		//get : El cliente debe llamar al metodo  recibir para hacer la transferencias de archivos
+		//put : El cliente debe llamar al metodo enviar para empezar la transferencia de informacion.
 		memset(comando,0,BUFSIZ);
 		printf("Ingrese el comando. (help =  ayuda)\n");
 		printf(">");
@@ -152,6 +172,10 @@ int main(int argc,char *  argv[])
 	}
 	exit(EXIT_SUCCESS);
 }
+
+
+//TODO: Dividir estos metodos en .h para  mejorar la simplicidad del trabajo.
+//Para probarlos se puede solicitar las dos cadenas separadas. 
 
 int enviar(char * nombre , int atrSocket)
 {
