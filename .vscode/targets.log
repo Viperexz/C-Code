@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Jul  7 19:14:48 2022
+# Make data base, printed on Thu Jul  7 17:19:12 2022
 
 # Variables
 
@@ -19,9 +17,9 @@ LC_ALL = C
 # environment
 SSH_AGENT_LAUNCHER = openssh
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-3b0524d9-de03-403a-9bf7-d5e91b2879b4.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-48f06512-de48-46af-b1a1-e03aece3ae8b.sock
 # environment
-VSCODE_CWD = /home/juanmz/Documentos/C-Code/LabSO/Parcial2_SO
+VSCODE_CWD = /home/juanmz/Documentos/C-Code
 # environment
 GDM_LANG = es_CO.UTF-8
 # default
@@ -35,9 +33,11 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
 .VARIABLES := 
 # environment
-PWD = /home/juanmz/Documentos/C-Code/LabSO/Parcial2_SO
+PWD = /home/juanmz/Documentos/C-Code
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
+# environment
+OLDPWD = /home/juanmz/Documentos
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
@@ -49,23 +49,23 @@ VSCODE_CODE_CACHE_PATH = /home/juanmz/.config/Code/CachedData/30d9c6cd9483b2cc58
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.1H03O1
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.DVN8O1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.98
+GNOME_TERMINAL_SERVICE = :1.99
 # makefile
 MAKEFLAGS = pqrR
 # environment
-DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=55096b39653f50dbd32418f562c7765c
+DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=44753144bbd1826b57fe0a2e62c75a2f
 # makefile
-CURDIR := /home/juanmz/Documentos/C-Code/LabSO/Parcial2_SO
+CURDIR := /home/juanmz/Documentos/C-Code
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -87,19 +87,19 @@ MAKEFILE_LIST :=
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 2743
+VSCODE_PID = 3203
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/debian:@/tmp/.ICE-unix/1831,unix/debian:/tmp/.ICE-unix/1831
+SESSION_MANAGER = local/debian:@/tmp/.ICE-unix/1840,unix/debian:/tmp/.ICE-unix/1840
 # automatic
 *F = $(notdir $*)
 # environment
 CHROME_DESKTOP = code-url-handler.desktop
 # environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=55096b39653f50dbd32418f562c7765c
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=44753144bbd1826b57fe0a2e62c75a2f
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # environment
@@ -117,7 +117,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/ea273ac8_5465_4995_bed4_9870c7d8f403
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/f3038ba7_8f48_4676_9117_fa4fe198ff40
 # environment
 MAKELEVEL := 0
 # default
@@ -205,7 +205,7 @@ XDG_MENU_PREFIX = gnome-
 # environment
 GDMSESSION = gnome
 # variable set hash-table stats:
-# Load=96/1024=9%, Rehash=0, Collisions=12/123=10%
+# Load=97/1024=9%, Rehash=0, Collisions=12/124=10%
 
 # Pattern-specific Variable Values
 
@@ -213,9 +213,9 @@ GDMSESSION = gnome
 
 # Directories
 
-# . (device 2049, inode 943779): 11 files, no impossibilities.
+# . (device 2049, inode 914814): 6 files, no impossibilities.
 
-# 11 files, no impossibilities in 1 directories.
+# 6 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -265,12 +265,14 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 19 / storage = 165 B / avg = 8 B
-# current buf: size = 8162 B / used = 165 B / count = 19 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 14 / storage = 120 B / avg = 8 B
+# current buf: size = 8162 B / used = 120 B / count = 14 / avg = 8 B
 
-# strcache performance: lookups = 22 / hit rate = 13%
+# strcache performance: lookups = 17 / hit rate = 17%
 # hash-table stats:
-# Load=19/8192=0%, Rehash=0, Collisions=0/22=0%
-# Finished Make data base on Thu Jul  7 19:14:48 2022
+# Load=14/8192=0%, Rehash=0, Collisions=0/17=0%
+# Finished Make data base on Thu Jul  7 17:19:12 2022
 
  
+make: *** No rule to make target 'all'.  Stop.
+

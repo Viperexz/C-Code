@@ -1,8 +1,6 @@
 make --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/home/oscar/Oscar/Github/C-Code/Parcial2_SO'
-gcc -c -o cliente.o cliente.c
-gcc -c -o server.o server.c
-gcc -o server server.o -pthread
-gcc -o cliente cliente.o
-make: Leaving directory '/home/oscar/Oscar/Github/C-Code/Parcial2_SO'
+make: Entering directory '/home/juanmz/Documentos/C-Code/LabSO/Parcial2_SO'
+make: Leaving directory '/home/juanmz/Documentos/C-Code/LabSO/Parcial2_SO'
  
+make: *** No targets specified and no makefile found.  Stop.
+

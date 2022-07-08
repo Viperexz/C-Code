@@ -56,10 +56,10 @@ int main(int argc,char *  argv[])
 
 	//Comprueba la existencia del directorio ".files", en caso de no existir lo crea
 	if(dir()==0) {
-		printf("El directorio files existe");
+		printf("El directorio files existe\n");
 	}
 	else {
-		printf("Se creo el directorio files");
+		printf("Se creo el directorio files\n");
 	}
 
 	//Asigna el socket del servidor
@@ -95,7 +95,7 @@ int main(int argc,char *  argv[])
 		{
 			char msjErr[35]; //mensaje de error en caso que el arreglo de clientes este lleno
 			int aux = accept(s,NULL,0);
-			strcpy(msjErr,"Limite de conexiones alcanzado");
+			strcpy(msjErr,"Limite de conexiones alcanzado\n");
 			send(aux,msjErr,BUFSIZ,0);
 			close(aux);
 		}
@@ -163,7 +163,7 @@ int enviar(char * nombre , int atrSocket) {
 	//Enviamos el tamano del archivo
 	if(send(atrSocket, (char *)&varLongitud,sizeof(varLongitud),0)<0)
 	{
-		printf("Error en envio del tamano del archivo: %s", nombre);
+		printf("Error en envio del tamano del archivo: %s\n", nombre);
 		return 1;
 	}
 	varBuffer = 1024 * 1024 * 4; //se asignan 4M 
