@@ -1,5 +1,5 @@
 Elaborado por: Oscar Fernando Hoyos Carvajal - osfehoyos@unicauca.edu.co  
-	       Juan Jose Medicis Sambrano
+	       Juan Jose Medicis Zambrano    - juanjosz@unicauca.edu.co
 
 Parcial 2:
 
