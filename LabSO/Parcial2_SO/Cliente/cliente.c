@@ -11,7 +11,6 @@
 #include <fcntl.h>
 
 
-
 /*
 Para multiples clientes
 https://poesiabinaria.net/2011/02/creando-un-servidor-que-acepte-multiples-clientes-simultaneos-en-c/ 
@@ -27,6 +26,10 @@ void comandos(char * atrCadena);
 char * archivo(char * old_nombre );
 int enviar(char * nombre , int atrSocket);
 int recibir(char * nombre , int atrSocket);
+
+int sendA(char * nombre, int atrSocket);
+int recvA(char * nombre, int atrSocket);
+
 int finished;
 
 
@@ -132,7 +135,7 @@ int main(int argc,char *  argv[]) {
 		printf("Ingrese el comando. (help =  ayuda)\n");
 		printf(">");
 		//permite leer una cadena de texto con espacios y agrega un salto de linea
-		fgets(comando,BUFSIZ,stdin);
+		fgets(comando,300,stdin);
 		printf("%s",comando);
 		comandos(comando);
 
@@ -155,7 +158,7 @@ int main(int argc,char *  argv[]) {
 			printf("Ejecutando: (%s) con el archivo (%s) ...\n", parts.comando,parts.nombre);
 			//Cambiar comando por archivo("Nombre del archivo");
 			//Para que le entregue un puntero con toda la informacion del archivo
-			int value = send(s,comando,BUFSIZ,0);
+			int value = send(s,parts.comando,BUFSIZ,0);
 
 			if(value ==-1) {	printf("1 \n");
 				printf("Error en el envio."); 
@@ -164,9 +167,13 @@ int main(int argc,char *  argv[]) {
 			printf("Se enviaron %i bytes \n",value);
 
 			if(strcmp(parts.comando,"get")==0) {
-				recibir(parts.nombre,s);
+				recvA(parts.nombre,s);
+				/*send(s,parts.nombre,BUFSIZ,0);
+				recibir(parts.nombre,s);*/
 			} else if(strcmp(parts.comando,"put")==0) {
-				enviar(parts.nombre,s);
+				sendA(parts.nombre,s);
+				/*send(s,parts.nombre,BUFSIZ,0);
+				enviar(parts.nombre,s);*/
 			}
 
 			recv(s,respuesta,BUFSIZ,0);
@@ -193,10 +200,8 @@ int main(int argc,char *  argv[]) {
 void comandos(char * atrCadena)
 {
 	char delimitador[] = " \n\t";
-	int varContador = 0;
 	strcpy(parts.comando,strtok(atrCadena, delimitador));
 	strcpy(parts.nombre,strtok(NULL, delimitador));
-
 }
 
 int enviar(char * nombre , int atrSocket) {
@@ -260,11 +265,6 @@ int enviar(char * nombre , int atrSocket) {
 int recibir(char * nombre , int atrSocket) {
  	FILE * fp1 ;
     struct stat st ;
-    if(stat(nombre, &st)<0 || !S_ISREG(st.st_mode))
-    {
-        perror("stat");
-		return 1;
-    }
     int varTamanio,varBandera, varAux,varEscritos,varEnviados,varNumeroBytes;
 	long varLongitud,varBuffer;	
 	varBuffer = 1024 * 1024 * 4;
@@ -300,4 +300,63 @@ int recibir(char * nombre , int atrSocket) {
 		}
 	}
 	close(fileno(fp1));
+}
+
+
+int sendA(char * nombre, int atrSocket)
+{
+	FILE * file;
+	//Verificar si el archivo ingresado existe 
+	struct stat st;
+	
+	if(stat(nombre,&st))
+	{
+		perror("stat");
+		return 1;
+	}
+	file = fopen(nombre, "rb");
+    if(file == NULL)
+    {
+        return 0;
+    }
+
+	//Recupera el tamano del archivo
+	int varTamano; 
+	varTamano = st.st_size;
+	char tempTamano =(char)varTamano;
+	send(atrSocket,varTamano,20,0);
+	char * buffer[varTamano];
+	int varRta= fread(buffer,1,varTamano,file);
+	send(atrSocket,buffer,varTamano,0);
+}
+
+
+int recvA(char * nombre, int atrSocket)
+{
+	//Recibimos el tamano
+	char tempTamano[20];
+	int varTamano; 
+	recv(atrSocket,tempTamano,20,0);
+	varTamano = atoi(tempTamano);
+	//Recibimos el contenido
+	char * buffer[varTamano];
+	recv(atrSocket,buffer,varTamano,0);
+
+	FILE * file;
+	//Verificar si el archivo ingresado existe 
+	struct stat st;
+	
+	if(stat(nombre,&st))
+	{
+		perror("stat");
+		return 1;
+	}
+	file = fopen(nombre, "wb");
+    if(file == NULL)
+    {
+        return 0;
+    }
+	//Recupera el tamano del archivo
+	varTamano = st.st_size;
+	fwrite(buffer,1,varTamano,file);
 }

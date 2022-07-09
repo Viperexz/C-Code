@@ -1,6 +1,6 @@
 make --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/home/juanmz/Documentos/C-Code'
-make: Leaving directory '/home/juanmz/Documentos/C-Code'
+make: Entering directory '/home/oscar/Oscar/C-Code'
+make: Leaving directory '/home/oscar/Oscar/C-Code'
  
 make: *** No targets specified and no makefile found.  Stop.
 

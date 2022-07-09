@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Jul  7 17:19:12 2022
+# Make data base, printed on Fri Jul  8 21:13:26 2022
 
 # Variables
 
@@ -15,11 +15,13 @@ GDK_BACKEND = x11
 # environment
 LC_ALL = C
 # environment
+NO_AT_BRIDGE = 1
+# environment
 SSH_AGENT_LAUNCHER = openssh
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-48f06512-de48-46af-b1a1-e03aece3ae8b.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-cc031727-d53c-4d37-9433-477d430b2c3d.sock
 # environment
-VSCODE_CWD = /home/juanmz/Documentos/C-Code
+VSCODE_CWD = /home/oscar/Oscar/C-Code
 # environment
 GDM_LANG = es_CO.UTF-8
 # default
@@ -33,11 +35,9 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
 .VARIABLES := 
 # environment
-PWD = /home/juanmz/Documentos/C-Code
+PWD = /home/oscar/Oscar/C-Code
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
-# environment
-OLDPWD = /home/juanmz/Documentos
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
@@ -45,23 +45,23 @@ VSCODE_LOG_STACK = false
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = /home/juanmz/.config/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
+VSCODE_CODE_CACHE_PATH = /home/oscar/.config/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.DVN8O1
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.IQVOO1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.99
+GNOME_TERMINAL_SERVICE = :1.379
 # makefile
 MAKEFLAGS = pqrR
 # environment
-DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=44753144bbd1826b57fe0a2e62c75a2f
+DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=805c17106167aa242952ffc762c88109
 # makefile
-CURDIR := /home/juanmz/Documentos/C-Code
+CURDIR := /home/oscar/Oscar/C-Code
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
@@ -87,23 +87,23 @@ MAKEFILE_LIST :=
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 3203
+VSCODE_PID = 17806
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/debian:@/tmp/.ICE-unix/1840,unix/debian:/tmp/.ICE-unix/1840
+SESSION_MANAGER = local/Viper:@/tmp/.ICE-unix/1646,unix/Viper:/tmp/.ICE-unix/1646
 # automatic
 *F = $(notdir $*)
 # environment
 CHROME_DESKTOP = code-url-handler.desktop
 # environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=44753144bbd1826b57fe0a2e62c75a2f
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=805c17106167aa242952ffc762c88109
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # environment
-VSCODE_NLS_CONFIG = {"locale":"es","availableLanguages":{"*":"es"},"_languagePackId":"eae11d900af9c06c6da7ac60cedf8cf9.es","_translationsConfigFile":"/home/juanmz/.config/Code/clp/eae11d900af9c06c6da7ac60cedf8cf9.es/tcf.json","_cacheRoot":"/home/juanmz/.config/Code/clp/eae11d900af9c06c6da7ac60cedf8cf9.es","_resolvedLanguagePackCoreLocation":"/home/juanmz/.config/Code/clp/eae11d900af9c06c6da7ac60cedf8cf9.es/30d9c6cd9483b2cc586687151bcbcd635f373630","_corruptedFile":"/home/juanmz/.config/Code/clp/eae11d900af9c06c6da7ac60cedf8cf9.es/corrupted.info","_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"es-419","availableLanguages":{},"_languagePackSupport":true}
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
@@ -117,7 +117,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/f3038ba7_8f48_4676_9117_fa4fe198ff40
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/89bbad51_0648_453a_b008_ea711a634bb8
 # environment
 MAKELEVEL := 0
 # default
@@ -133,7 +133,7 @@ LANGUAGE = es_CO:es
 # environment
 VSCODE_LOG_NATIVE = false
 # environment
-USERNAME = juanmz
+USERNAME = oscar
 # environment
 GNOME_SETUP_DISPLAY = :1
 # automatic
@@ -151,13 +151,13 @@ ORIGINAL_XDG_CURRENT_DESKTOP = GNOME
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
-LOGNAME = juanmz
+LOGNAME = oscar
 # makefile
 .DEFAULT_GOAL := 
 # environment
 DISPLAY = :0
 # environment
-USER = juanmz
+USER = oscar
 # environment
 GTK_MODULES = gail:atk-bridge
 # default
@@ -175,13 +175,13 @@ XDG_SESSION_CLASS = user
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-HOME = /home/juanmz
+HOME = /home/oscar
 # environment
 QT_IM_MODULE = ibus
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-ab35d5ec-1.68.1-main.sock
+VSCODE_IPC_HOOK = /run/user/1000/vscode-b6f35f9c-1.68.1-main.sock
 # environment
 TERM = xterm-256color
 # environment
@@ -213,7 +213,7 @@ GDMSESSION = gnome
 
 # Directories
 
-# . (device 2049, inode 914814): 6 files, no impossibilities.
+# . (device 2049, inode 530195): 6 files, no impossibilities.
 
 # 6 files, no impossibilities in 1 directories.
 
@@ -271,7 +271,7 @@ GNUmakefile:
 # strcache performance: lookups = 17 / hit rate = 17%
 # hash-table stats:
 # Load=14/8192=0%, Rehash=0, Collisions=0/17=0%
-# Finished Make data base on Thu Jul  7 17:19:12 2022
+# Finished Make data base on Fri Jul  8 21:13:26 2022
 
  
 make: *** No rule to make target 'all'.  Stop.
