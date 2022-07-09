@@ -9,9 +9,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include "archivos.h"
 
-#define DIRECTORIO_ARCHIVOS ".files"
+
+#define DIR_ARCHIVOS ".files"
 #define MAX_MEM 1024 * 1024 * 4 // Capacidad de 4M
 unsigned char buffer[MAX_MEM];
 unsigned char bufferAux[MAX_MEM];
@@ -86,7 +86,7 @@ int main(int argc,char *  argv[])
 		{
 			arregloClientes[varCountClientes] = accept(s,NULL,0); //Espera una conexion.
 			printf("Cliente %i Conectado", arregloClientes[varCountClientes]); 
-			char msjErr[35];
+			char msjErr[40];
 			strcpy(msjErr,"SERVER: Cliente conectado \n ");
 			send(arregloClientes[varCountClientes],msjErr,BUFSIZ,0);
 			varCountClientes++;
@@ -95,7 +95,7 @@ int main(int argc,char *  argv[])
 		{
 			char msjErr[35]; //mensaje de error en caso que el arreglo de clientes este lleno
 			int aux = accept(s,NULL,0);
-			strcpy(msjErr,"Limite de conexiones alcanzado\n");
+			strcpy(msjErr,"Limite");
 			send(aux,msjErr,BUFSIZ,0);
 			close(aux);
 		}
@@ -108,18 +108,20 @@ int main(int argc,char *  argv[])
 		char nombre[50];
 		strcpy(comando, cadena);
 		strcpy(nombre,cadena);
-		if(strcmp(comando,"put")==0) {
+		if(strcmp(comando,"get")==0) {
 			char respuesta[20];
 			recibir(nombre,arregloClientes[varCountClientes-1]);
-			strcpy(respuesta,"Entregado... \n");
+			strcpy(respuesta,"Entregado: ");
+			strcpy(respuesta,nombre);
 			send(arregloClientes[varCountClientes-1],respuesta,BUFSIZ,0);
 			//echo("entregado\n");
 		}
-		else if(strcmp(comando,"get")==0)
+		else if(strcmp(comando,"put")==0)
 		{
 			char respuesta[20];
 			enviar(nombre,arregloClientes[varCountClientes-1]);
-			strcpy(respuesta,"Enviado... \n");
+			strcpy(respuesta,"Recibido: ");
+			strcpy(respuesta,nombre);
 			send(arregloClientes[varCountClientes-1],respuesta,BUFSIZ,0);
 			//echo("archivo recibido\n");
 		}
@@ -130,8 +132,7 @@ int main(int argc,char *  argv[])
 }
 
 //revisa si existe una carpeta .files de no ser así la crea
-int dir()
-{
+int dir() {
     struct stat s;
     if(stat(".files", &s)>0 || S_ISDIR(s.st_mode))
     {
@@ -139,8 +140,112 @@ int dir()
     }
     else
     {
-        mkdir(DIRECTORIO_ARCHIVOS,S_IRWXU);
+        mkdir(DIR_ARCHIVOS,S_IRWXU);
         return 1;  
     }
     return 0;
+}
+
+int enviar(char * nombre , int atrSocket) {
+    FILE * fp1 ;
+    struct stat st;
+	char * dir_archivo;
+	dir_archivo = malloc( 65 + (strlen(DIR_ARCHIVOS)) + strlen("/") );
+    strcat(dir_archivo,DIR_ARCHIVOS);
+    strcat(dir_archivo,"/");
+    strcat(dir_archivo,nombre);
+	if(stat(dir_archivo, &st)<0 || !S_ISREG(st.st_mode)) {
+        perror("stat");
+    }
+    int varTamanio,varBandera, varAux,varLeidos,varEnviados;
+	long varLongitud,varBuffer;
+
+	//Obtenemos el tamano
+    fp1 = fopen(dir_archivo, "r");
+	fseek(fp1 , 0 , SEEK_END ); // Se posiciona al final del archivo
+	varTamanio = ftell(fp1); // Devuelve el tamaño del archivo (en bytes)
+	close(fileno(fp1));
+	printf ("tamaño %i\n", varTamanio);
+	varLongitud = htonl(varTamanio);
+
+	//Enviamos el tamano del archivo
+	if(send(atrSocket, (char *)&varLongitud,sizeof(varLongitud),0)<0) {
+		printf("Error en envio del tamano del archivo: %s\n", dir_archivo);
+		return 1;
+	}
+	varBuffer = 1024 * 1024 * 4; //se asignan 4M 
+	varLongitud = varTamanio;
+	fp1 = fopen(dir_archivo,"rb");
+
+	//Se envia por partes el archivo
+	if(fp1!=NULL) {
+		varBandera = varLongitud;
+		varAux = 0;
+		while(varAux < varLongitud)	{
+			if(varBandera<varBuffer) {
+				varBuffer = varBandera;
+				char buffer[varBandera];
+				char bufferAux[varBandera+1];
+			}
+			printf("Servidor: Tamano: %d - varBandera %d \n",varBuffer,varBandera);
+			varLeidos = fread(buffer,sizeof(char),varBuffer, fp1);
+			varEnviados = send(atrSocket, bufferAux,varLeidos,0);
+			printf("Servidor:Envie %d bytes \n", varEnviados);
+			varBandera = varBandera-varLeidos;
+			varAux = varAux + varLeidos;
+		}
+	}
+	else {
+		printf("Problema con el archivo \n");
+		close(fileno(fp1));
+	}
+	return 0;
+}
+
+int recibir(char * nombre , int atrSocket) {
+ 	FILE * fp1 ;
+    struct stat st = {0};
+	char * dir_archivo;
+    
+	dir_archivo = malloc( 65 + (strlen(DIR_ARCHIVOS)) + strlen("/") );
+    strcat(dir_archivo,DIR_ARCHIVOS);
+    strcat(dir_archivo,"/");
+    strcat(dir_archivo,nombre);
+	stat(dir_archivo,&st);
+	if(stat(dir_archivo, &st)<0 || !S_ISREG(st.st_mode)) {
+        perror("stat");
+    }
+    int varTamanio,varBandera, varAux,varEscritos,varEnviados,varNumeroBytes;
+	long varLongitud,varBuffer;	
+	varBuffer = 1024 * 1024 * 4;
+	if (varBuffer >=0) {
+		fp1= fopen (dir_archivo, "wb"); 
+		varBandera = varLongitud;
+		//en este ciclo se recibe el archivo en partes
+		varAux = 0;
+		while(varAux < varLongitud) {
+			if (varBandera<varBuffer) {
+				varBuffer = varBandera;
+				char buffer[varBandera];
+				char bufferAux[varBandera+1];
+			}
+
+			varNumeroBytes = recv(atrSocket, buffer, sizeof(buffer), 0 );
+			printf("CLIENTE ---- Recibi %d bytes \n", varNumeroBytes);
+			//printf("CLIENTE ---- Recibi %s \n", buffer);
+			for (int j=0; j< varNumeroBytes; j++) {
+				bufferAux[j]= buffer[j];
+			}
+			bufferAux[varNumeroBytes+1]='\0';
+			varEscritos= fwrite(bufferAux, sizeof(char), varNumeroBytes, fp1);
+			printf("CLIENTE ---- Recibi %s \n", bufferAux);
+
+			printf("CLIENTE ---- escritos %d\n", varEscritos);
+			varBandera = varBandera-varNumeroBytes;
+			varAux = varAux+varNumeroBytes;
+			printf("CLIENTE ---- Hasta ahora recibi %d bytes \n", varAux);
+			if (varNumeroBytes==0) varAux= varLongitud;
+		}
+	}
+	close(fileno(fp1));
 }

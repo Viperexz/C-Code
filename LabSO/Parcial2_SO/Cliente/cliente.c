@@ -9,7 +9,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include "archivos.h"
+
 
 
 /*
@@ -20,11 +20,22 @@ https://poesiabinaria.net/2011/02/creando-un-servidor-que-acepte-multiples-clien
 
 #define DIRECTORIO_ARCHIVOS ""
 #define MAX_MEM 1024 * 1024 * 4 // Capacidad de 4M
+
 unsigned char buffer[MAX_MEM];
 unsigned char bufferAux[MAX_MEM];
-
+void comandos(char * atrCadena);
+char * archivo(char * old_nombre );
+int enviar(char * nombre , int atrSocket);
+int recibir(char * nombre , int atrSocket);
 int finished;
 
+
+struct Partes
+{
+	char comando[10];
+	char nombre[BUFSIZ];
+}Partes;
+struct Partes parts;
 /*
 TODO: Integrar los hilos y semaforos.
 Recordar que se debe validar que los clientes no intenten subir el mismo archivo se presntara una condicion de carrera.
@@ -49,6 +60,7 @@ int main(int argc,char *  argv[]) {
 	//VARIABLES
 	int finished = 0;
 	int s;
+
 	
 	//Cliente
 	int c;
@@ -102,8 +114,8 @@ int main(int argc,char *  argv[]) {
 	printf("Conectando a %s:%i ... \n",ip,port);
 	recv(s,respuesta,BUFSIZ,0);
 
-	if(strcmp(respuesta,"Limite de conexiones alcanzado")==0) {	
-		printf("%s",respuesta);
+	if(strcmp(respuesta,"Limite")==0) {	
+		printf("Limite de conexiones alcanzados /n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -121,21 +133,8 @@ int main(int argc,char *  argv[]) {
 		printf(">");
 		//permite leer una cadena de texto con espacios y agrega un salto de linea
 		fgets(comando,BUFSIZ,stdin);
-		//elimina el salto de linea con este metodo para no usar la funcion peligrosa "gets"
-		comando[strcspn(comando, "\n")] = 0;
-		
-		//variable usada para separar la cadena de texto con la funcion strtok
-		char * token = strtok(comando," ");
-		//vector de cadenas usado para almacenar los tokens o partes de la cadena separada
-		char * tokens[3];
-		//auxiliar contador para llenar la variable tokens
-		int i = 0;
-
-		//ciclo while para el llenado del vector tokens con las partes de la cadena
-		while(token!=NULL){
-			tokens[i++] = token;
-			token = strtok(NULL," ");
-		}
+		printf("%s",comando);
+		comandos(comando);
 
 		/*
 		 * tokens[0]: contiene la instruccion
@@ -143,7 +142,7 @@ int main(int argc,char *  argv[]) {
 		 */
 		
 		//en caso de que la instruccion sea "help" imprime un menu de ayuda
-		if(strcmp(tokens[0],"help")==0) {
+		if(strcmp(parts.comando,"help")==0) {
 			printf("=============================== HELP =============================== \n");
 			printf("Puedes seleccionar uno de los siguientes comandos: \n");
 			printf("get: Para recuperar los archivos del servidor. \n");
@@ -151,29 +150,29 @@ int main(int argc,char *  argv[]) {
 			printf("exit: Finaliza el proceso cliente. \n");
 		}
 		//en caso de que se haya ingresado un nombre y la instruccion sea "get" o "put"...
-		else if(tokens[1] != NULL && (strcmp(tokens[0],"get")==0 || strcmp(tokens[0],"put")==0)) {
+		else if(parts.nombre != NULL && (strcmp(parts.comando,"get")==0 || strcmp(parts.comando,"put")==0)) {
 
-			printf("Ejecutando: (%s) ...\n", tokens[0]);
+			printf("Ejecutando: (%s) con el archivo (%s) ...\n", parts.comando,parts.nombre);
 			//Cambiar comando por archivo("Nombre del archivo");
 			//Para que le entregue un puntero con toda la informacion del archivo
 			int value = send(s,comando,BUFSIZ,0);
 
-			if(value ==-1) {
+			if(value ==-1) {	printf("1 \n");
 				printf("Error en el envio."); 
 			}
 
 			printf("Se enviaron %i bytes \n",value);
 
-			if(strcmp(tokens[0],"get")==0) {
-				recibir(tokens[1],s);
-			} else if(strcmp(tokens[0],"get")==0) {
-				enviar(tokens[1],s);
+			if(strcmp(parts.comando,"get")==0) {
+				recibir(parts.nombre,s);
+			} else if(strcmp(parts.comando,"put")==0) {
+				enviar(parts.nombre,s);
 			}
 
 			recv(s,respuesta,BUFSIZ,0);
 			printf("%s",respuesta);
 		}
-		else if(strcmp(tokens[0],"exit")==0) {
+		else if(strcmp(parts.comando,"exit")==0) {
 
 			finished = 1;
 			close(s);
@@ -187,4 +186,118 @@ int main(int argc,char *  argv[]) {
 	exit(EXIT_SUCCESS);
 }
 
+//TODO: Dividir estos metodos en .h para  mejorar la simplicidad del trabajo.
+//Para probarlos se puede solicitar las dos tokens separadas. 
 
+
+void comandos(char * atrCadena)
+{
+	char delimitador[] = " \n\t";
+	int varContador = 0;
+	strcpy(parts.comando,strtok(atrCadena, delimitador));
+	strcpy(parts.nombre,strtok(NULL, delimitador));
+
+}
+
+int enviar(char * nombre , int atrSocket) {
+    FILE * fp1 ;
+    struct stat st;
+	if(stat(nombre, &st)<0 || !S_ISREG(st.st_mode))
+    {
+        perror("stat");
+		return 1;
+    }
+    int varTamanio,varBandera, varAux,varLeidos,varEnviados;
+	long varLongitud,varBuffer;
+
+	//Obtenemos el tamano
+    fp1 = fopen(nombre, "r");
+	fseek(fp1 , 0 , SEEK_END ); // Se posiciona al final del archivo
+	varTamanio = ftell(fp1); // Devuelve el tamaño del archivo (en bytes)
+	close(fileno(fp1));
+	printf ("tamaño %i\n", varTamanio);
+	varLongitud = htonl(varTamanio);
+
+	//Enviamos el tamano del archivo
+	if(send(atrSocket, (char *)&varLongitud,sizeof(varLongitud),0)<0)
+	{
+		printf("Error en envio del tamano del archivo: %s", nombre);
+		return 1;
+	}
+	varBuffer = 1024 * 1024 * 4; //se asignan 4M 
+	varLongitud = varTamanio;
+	fp1 = fopen(nombre,"rb");
+
+	//Se envia por partes el archivo
+	if(fp1!=NULL)
+	{
+		varBandera = varLongitud;
+		varAux = 0;
+		while(varAux < varLongitud)
+		{
+			if(varBandera<varBuffer)
+			{
+				varBuffer = varBandera;
+				char buffer[varBandera];
+				char bufferAux[varBandera+1];
+			}
+			printf("Servidor: Tamano: %d - varBandera %d \n",varBuffer,varBandera);
+			varLeidos = fread(buffer,sizeof(char),varBuffer, fp1);
+			varEnviados = send(atrSocket, bufferAux,varLeidos,0);
+			printf("Servidor:Envie %d bytes \n", varEnviados);
+			varBandera = varBandera-varLeidos;
+			varAux = varAux + varLeidos;
+		}
+	}
+	else
+	{
+		printf("Problema con el archivo \n");
+		close(fileno(fp1));
+	}
+	return 0;
+}
+
+int recibir(char * nombre , int atrSocket) {
+ 	FILE * fp1 ;
+    struct stat st ;
+    if(stat(nombre, &st)<0 || !S_ISREG(st.st_mode))
+    {
+        perror("stat");
+		return 1;
+    }
+    int varTamanio,varBandera, varAux,varEscritos,varEnviados,varNumeroBytes;
+	long varLongitud,varBuffer;	
+	varBuffer = 1024 * 1024 * 4;
+
+	if (varBuffer >=0){
+		fp1= fopen (nombre, "wb");
+		varBandera = varLongitud;
+		//en este ciclo se recibe el archivo en partes
+		varAux = 0;
+		while(varAux < varLongitud){
+			if (varBandera<varBuffer){
+				varBuffer = varBandera;
+				char buffer[varBandera];
+				char bufferAux[varBandera+1];
+			}
+
+			varNumeroBytes = recv(atrSocket, buffer, sizeof(buffer), 0 );
+			printf("CLIENTE ---- Recibi %d bytes \n", varNumeroBytes);
+
+			for (int j=0; j< varNumeroBytes; j++){
+				bufferAux[j]= buffer[j];
+			}
+			bufferAux[varNumeroBytes+1]='\0';
+			varEscritos= fwrite(bufferAux, sizeof(char), varNumeroBytes, fp1);
+			printf("CLIENTE ---- Recibi %s \n", bufferAux);
+
+			printf("CLIENTE ---- escritos %d\n", varEscritos);
+
+			varBandera = varBandera-varNumeroBytes;
+			varAux = varAux+varNumeroBytes;
+			printf("CLIENTE ---- Hasta ahora recibi %d bytes \n", varAux);
+			if (varNumeroBytes==0) varAux= varLongitud;
+		}
+	}
+	close(fileno(fp1));
+}
