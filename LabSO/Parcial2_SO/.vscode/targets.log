@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Jul  7 19:14:48 2022
+# Make data base, printed on Sat Jul  9 11:47:58 2022
 
 # Variables
 
@@ -19,9 +17,9 @@ LC_ALL = C
 # environment
 SSH_AGENT_LAUNCHER = openssh
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-3b0524d9-de03-403a-9bf7-d5e91b2879b4.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-189a03e7-ccd8-4e75-b9ee-9c6a06ad52bb.sock
 # environment
-VSCODE_CWD = /home/juanmz/Documentos/C-Code/LabSO/Parcial2_SO
+VSCODE_CWD = /home/oscar/Oscar/C-Code/LabSO/Parcial2_SO
 # environment
 GDM_LANG = es_CO.UTF-8
 # default
@@ -35,7 +33,7 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
 .VARIABLES := 
 # environment
-PWD = /home/juanmz/Documentos/C-Code/LabSO/Parcial2_SO
+PWD = /home/oscar/Oscar/C-Code/LabSO/Parcial2_SO
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # automatic
@@ -45,27 +43,27 @@ VSCODE_LOG_STACK = false
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = /home/juanmz/.config/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
+VSCODE_CODE_CACHE_PATH = /home/oscar/.config/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.1H03O1
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.NNNPO1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.98
+GNOME_TERMINAL_SERVICE = :1.104
 # makefile
 MAKEFLAGS = pqrR
 # environment
-DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=55096b39653f50dbd32418f562c7765c
+DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=621b451e96404832c9fe10b962c9b0fd
 # makefile
-CURDIR := /home/juanmz/Documentos/C-Code/LabSO/Parcial2_SO
+CURDIR := /home/oscar/Oscar/C-Code/LabSO/Parcial2_SO
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -87,23 +85,23 @@ MAKEFILE_LIST :=
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 2743
+VSCODE_PID = 2330
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/debian:@/tmp/.ICE-unix/1831,unix/debian:/tmp/.ICE-unix/1831
+SESSION_MANAGER = local/Viper:@/tmp/.ICE-unix/1621,unix/Viper:/tmp/.ICE-unix/1621
 # automatic
 *F = $(notdir $*)
 # environment
 CHROME_DESKTOP = code-url-handler.desktop
 # environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=55096b39653f50dbd32418f562c7765c
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=621b451e96404832c9fe10b962c9b0fd
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # environment
-VSCODE_NLS_CONFIG = {"locale":"es","availableLanguages":{"*":"es"},"_languagePackId":"eae11d900af9c06c6da7ac60cedf8cf9.es","_translationsConfigFile":"/home/juanmz/.config/Code/clp/eae11d900af9c06c6da7ac60cedf8cf9.es/tcf.json","_cacheRoot":"/home/juanmz/.config/Code/clp/eae11d900af9c06c6da7ac60cedf8cf9.es","_resolvedLanguagePackCoreLocation":"/home/juanmz/.config/Code/clp/eae11d900af9c06c6da7ac60cedf8cf9.es/30d9c6cd9483b2cc586687151bcbcd635f373630","_corruptedFile":"/home/juanmz/.config/Code/clp/eae11d900af9c06c6da7ac60cedf8cf9.es/corrupted.info","_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"es-419","availableLanguages":{},"_languagePackSupport":true}
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
@@ -117,7 +115,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/ea273ac8_5465_4995_bed4_9870c7d8f403
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/31055b20_40c5_4914_b15a_e956e3a45306
 # environment
 MAKELEVEL := 0
 # default
@@ -133,7 +131,7 @@ LANGUAGE = es_CO:es
 # environment
 VSCODE_LOG_NATIVE = false
 # environment
-USERNAME = juanmz
+USERNAME = oscar
 # environment
 GNOME_SETUP_DISPLAY = :1
 # automatic
@@ -151,13 +149,13 @@ ORIGINAL_XDG_CURRENT_DESKTOP = GNOME
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
-LOGNAME = juanmz
+LOGNAME = oscar
 # makefile
 .DEFAULT_GOAL := 
 # environment
 DISPLAY = :0
 # environment
-USER = juanmz
+USER = oscar
 # environment
 GTK_MODULES = gail:atk-bridge
 # default
@@ -175,13 +173,13 @@ XDG_SESSION_CLASS = user
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-HOME = /home/juanmz
+HOME = /home/oscar
 # environment
 QT_IM_MODULE = ibus
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-ab35d5ec-1.68.1-main.sock
+VSCODE_IPC_HOOK = /run/user/1000/vscode-b6f35f9c-1.68.1-main.sock
 # environment
 TERM = xterm-256color
 # environment
@@ -213,9 +211,9 @@ GDMSESSION = gnome
 
 # Directories
 
-# . (device 2049, inode 943779): 11 files, no impossibilities.
+# . (device 2049, inode 665538): 9 files, no impossibilities.
 
-# 11 files, no impossibilities in 1 directories.
+# 9 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -265,12 +263,14 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 19 / storage = 165 B / avg = 8 B
-# current buf: size = 8162 B / used = 165 B / count = 19 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 17 / storage = 156 B / avg = 9 B
+# current buf: size = 8162 B / used = 156 B / count = 17 / avg = 9 B
 
-# strcache performance: lookups = 22 / hit rate = 13%
+# strcache performance: lookups = 20 / hit rate = 15%
 # hash-table stats:
-# Load=19/8192=0%, Rehash=0, Collisions=0/22=0%
-# Finished Make data base on Thu Jul  7 19:14:48 2022
+# Load=17/8192=0%, Rehash=0, Collisions=0/20=0%
+# Finished Make data base on Sat Jul  9 11:47:58 2022
 
  
+make: *** No rule to make target 'all'.  Stop.
+
